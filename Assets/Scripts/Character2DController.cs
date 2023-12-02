@@ -63,6 +63,8 @@ public class Character2DController : MonoState<Character2DController>
     float _lastTimeJumpPressed;
     float _meleeDamage;
 
+    private AudioSource _jump;
+
     [HideInInspector]
     public bool _canMove = true;
 
@@ -72,6 +74,7 @@ public class Character2DController : MonoState<Character2DController>
 
         _rb = GetComponent<Rigidbody2D>();
         _gravityY = -Physics2D.gravity.y;
+        _jump = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -147,6 +150,7 @@ public class Character2DController : MonoState<Character2DController>
         if (_lastTimeJumpPressed > 0.0F && Time.time - _lastTimeJumpPressed <= jumpGraceTime)
         {
             _isJumpPressed = true;
+            _jump.Play();
         }
         else
         {
