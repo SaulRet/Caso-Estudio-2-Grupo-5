@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HealthController : MonoBehaviour
 {
@@ -43,6 +44,7 @@ public class HealthController : MonoBehaviour
         if (health <= 0.0F)
         {
             Destroy(gameObject);
+            LevelManager.Instance.NextScene();
             return;
         }
 
