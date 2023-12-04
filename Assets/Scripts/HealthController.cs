@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System;
 
 public class HealthController : MonoBehaviour
 {
@@ -15,7 +15,9 @@ public class HealthController : MonoBehaviour
     float loseControlTimeout = 1.25F;
 
     [SerializeField]
-    Vector2 reboundVelocity; 
+    Vector2 reboundVelocity;
+
+    public event EventHandler MuerteJugador;
 
     Character2DController _characterController;
     HealthBarController _healthBarController;
@@ -43,9 +45,9 @@ public class HealthController : MonoBehaviour
         health -= damage;
         if (health <= 0.0F)
         {
+            MuerteJugador?.Invoke(this, EventArgs.Empty);
             Destroy(gameObject);
-            LevelManager.Instance.NextScene();
-            return;
+
         }
 
         _characterController.animator.SetTrigger("hit");
